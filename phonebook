@@ -1,0 +1,12 @@
+#!/bin/bash
+
+MEMBERS_DATA=https://phonebook.sdcc.bnl.gov/eic/service/index.php/?q=/members/list/status:all
+MEMBERS_DESC=https://phonebook.sdcc.bnl.gov/eic/service/index.php/?q=/service/list/object:fields/type:members
+
+if [[ $# <= 1 ]] ; then
+  echo " $(basename $0) - Command line client for the EIC phone book"
+  echo "Usage:  $(basename $0) <name>"
+  exit 0
+fi
+
+curl -L ${MEMBERS_DATA} ${MEMBERS_DESC} | jq '.[0], .[1]'
